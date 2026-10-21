@@ -1,0 +1,94 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3
+  SuggestExtensions: false
+
+Bundler/GemVersion:
+  Enabled: true
+
+Lint/EmptyClass:
+  Enabled: false
+
+Lint/SymbolConversion:
+  Enabled: false
+    
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/GuardClause:
+  Enabled: false 
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+Naming/PredicatePrefix:
+  Enabled: false 
+
+Layout/LineLength:
+  Max: 130
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - benchmarks/**/*
+
+Metrics/ClassLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_space
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: true
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
+Naming/MethodName:
+  AllowedPatterns:
+    - '\A[A-Z]'
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - spec/core/exceptions_spec.rb
+
+Metrics/ModuleLength:
+  Exclude:
+    - benchmarks/**/*
+
+Style/SelectByKind:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - benchmarks/**/*

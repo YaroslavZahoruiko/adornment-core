@@ -1,0 +1,165 @@
+{
+  "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+  "yjit": false,
+  "samples": 5,
+  "date": "2026-10-20T18:15:00Z",
+  "phases": {
+    "require": {
+      "kb": 33.7333984375,
+      "kb_min": 33.7333984375,
+      "kb_max": 33.7333984375,
+      "slots": 835
+    },
+    "200 classes x 50 annotated methods": {
+      "kb": 3116.3203125,
+      "kb_min": 3116.3203125,
+      "kb_max": 3116.3203125,
+      "slots": 72304
+    },
+    "annotations_for on every method": {
+      "kb": 0.375,
+      "kb_min": 0.375,
+      "kb_max": 0.375,
+      "slots": 815
+    },
+    "annotated_with on every class": {
+      "kb": 0.15625,
+      "kb_min": 0.15625,
+      "kb_max": 0.15625,
+      "slots": 1021
+    },
+    "global Adornment.annotated_with": {
+      "kb": 2.8984375,
+      "kb_min": 2.8984375,
+      "kb_max": 2.8984375,
+      "slots": 215
+    }
+  },
+  "raw": [
+    {
+      "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+      "phases": {
+        "require": {
+          "slots": 835,
+          "bytes": 34543
+        },
+        "200 classes x 50 annotated methods": {
+          "slots": 72304,
+          "bytes": 3191112
+        },
+        "annotations_for on every method": {
+          "slots": 815,
+          "bytes": 384
+        },
+        "annotated_with on every class": {
+          "slots": 1021,
+          "bytes": 160
+        },
+        "global Adornment.annotated_with": {
+          "slots": 215,
+          "bytes": 2968
+        }
+      }
+    },
+    {
+      "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+      "phases": {
+        "require": {
+          "slots": 835,
+          "bytes": 34543
+        },
+        "200 classes x 50 annotated methods": {
+          "slots": 72304,
+          "bytes": 3191112
+        },
+        "annotations_for on every method": {
+          "slots": 815,
+          "bytes": 384
+        },
+        "annotated_with on every class": {
+          "slots": 1021,
+          "bytes": 160
+        },
+        "global Adornment.annotated_with": {
+          "slots": 215,
+          "bytes": 2968
+        }
+      }
+    },
+    {
+      "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+      "phases": {
+        "require": {
+          "slots": 835,
+          "bytes": 34543
+        },
+        "200 classes x 50 annotated methods": {
+          "slots": 72304,
+          "bytes": 3191112
+        },
+        "annotations_for on every method": {
+          "slots": 815,
+          "bytes": 384
+        },
+        "annotated_with on every class": {
+          "slots": 1021,
+          "bytes": 160
+        },
+        "global Adornment.annotated_with": {
+          "slots": 215,
+          "bytes": 2968
+        }
+      }
+    },
+    {
+      "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+      "phases": {
+        "require": {
+          "slots": 835,
+          "bytes": 34543
+        },
+        "200 classes x 50 annotated methods": {
+          "slots": 72304,
+          "bytes": 3191112
+        },
+        "annotations_for on every method": {
+          "slots": 815,
+          "bytes": 384
+        },
+        "annotated_with on every class": {
+          "slots": 1021,
+          "bytes": 160
+        },
+        "global Adornment.annotated_with": {
+          "slots": 215,
+          "bytes": 2968
+        }
+      }
+    },
+    {
+      "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+      "phases": {
+        "require": {
+          "slots": 835,
+          "bytes": 34543
+        },
+        "200 classes x 50 annotated methods": {
+          "slots": 72304,
+          "bytes": 3191112
+        },
+        "annotations_for on every method": {
+          "slots": 815,
+          "bytes": 384
+        },
+        "annotated_with on every class": {
+          "slots": 1021,
+          "bytes": 160
+        },
+        "global Adornment.annotated_with": {
+          "slots": 215,
+          "bytes": 2968
+        }
+      }
+    }
+  ]
+}

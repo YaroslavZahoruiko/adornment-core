@@ -1,0 +1,58 @@
+# Publishes adornment-core to RubyGems when a version tag (v0.1.0) is pushed.
+#
+# Uses RubyGems trusted publishing (OIDC), so no API key is stored in the repository. Once, on
+# rubygems.org: Profile > Trusted publishers (a pending publisher before the first release) >
+# repository YaroslavZahoruiko/adornment-core, workflow release.yml, environment release.
+#
+# To release: bump Adornment::Core::VERSION, date the CHANGELOG entry, commit, then
+#   git tag v0.1.0 && git push origin v0.1.0
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  specs:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - run: bundle exec rspec
+
+  publish:
+    needs: specs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: release
+    permissions:
+      contents: read
+      id-token: write # trusted publishing
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+      - name: Tag matches the gem version
+        run: |
+          version=$(ruby -r ./lib/adornment/core/version -e 'print Adornment::Core::VERSION')
+          test "$GITHUB_REF_NAME" = "v$version" || { echo "tag $GITHUB_REF_NAME != v$version"; exit 1; }
+          grep -q "^## $version " CHANGELOG.md || { echo "CHANGELOG.md has no $version entry"; exit 1; }
+      - uses: rubygems/configure-rubygems-credentials@v1
+      - name: Build and push
+        run: |
+          gem build adornment-core.gemspec --strict --output adornment-core.gem
+          gem push adornment-core.gem

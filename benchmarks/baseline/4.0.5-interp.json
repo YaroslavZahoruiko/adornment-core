@@ -1,0 +1,629 @@
+{
+  "environment": {
+    "ruby": "ruby 4.0.5 (2026-05-20 revision 64336ffd0e) +PRISM [arm64-darwin25]",
+    "platform": "arm64-darwin25",
+    "os": "Darwin 25.4.0 arm64",
+    "cpu": "Apple M5",
+    "cpus": "10",
+    "date": "2026-10-20T18:14:54Z",
+    "suite_sha256": "d1d58e833dac2bed4748fad2e919880b6e229078582591046a003ed782cd4cee",
+    "core_lib_sha256": "f3372de736ea5af7e3abba1e40a88d44337b666d03d4295cfa4420cc3f4a2cee",
+    "samples": 7,
+    "methodology": "one fresh process per sample; within a process each case warms up, then runs a fixed number of operations with GC enabled (GC.start before each batch operation); ns and allocated objects (GC.stat) per unit",
+    "yjit": false,
+    "prism": "1.9.0"
+  },
+  "summary": {
+    "require": {
+      "median_ns": 1774999.7787177563,
+      "min_ns": 1684000.2499520779,
+      "max_ns": 2173000.0153183937,
+      "spread": 0.27549285990309524,
+      "median_objects": 1796.0
+    },
+    "reflection: Adornment.annotated_with (global, 3 owners)": {
+      "median_ns": 16793.649992905557,
+      "min_ns": 16643.250011838973,
+      "max_ns": 17920.499993488193,
+      "spread": 0.0760555318342821,
+      "median_objects": 107.00015
+    },
+    "activation (class + include Adornment[...])": {
+      "median_ns": 9820.997947826982,
+      "min_ns": 9765.502763912082,
+      "max_ns": 25055.998004972935,
+      "spread": 1.5569186881302695,
+      "median_objects": 80.0005
+    },
+    "definition: plain class (baseline)": {
+      "median_ns": 187.74992786347866,
+      "min_ns": 185.64995843917131,
+      "max_ns": 247.44998663663864,
+      "spread": 0.32916139516391657,
+      "median_objects": 2.003
+    },
+    "definition: activated, unannotated": {
+      "median_ns": 272.64999225735664,
+      "min_ns": 265.7500095665455,
+      "max_ns": 279.2999381199479,
+      "spread": 0.04969715363355863,
+      "median_objects": 2.005
+    },
+    "definition: activated subclass, unannotated": {
+      "median_ns": 274.05000291764736,
+      "min_ns": 266.80000592023134,
+      "max_ns": 339.1000209376216,
+      "spread": 0.2638205227062762,
+      "median_objects": 2.006
+    },
+    "declaration (repeatable, queued)": {
+      "median_ns": 549.9001126736403,
+      "min_ns": 545.0999829918146,
+      "max_ns": 687.3000646010041,
+      "spread": 0.2585925667805486,
+      "median_objects": 9.004
+    },
+    "declaration + definition (1000 methods/owner)": {
+      "median_ns": 1412.5999994575977,
+      "min_ns": 1392.3499966040254,
+      "max_ns": 1623.6499650403857,
+      "spread": 0.16374059785160247,
+      "median_objects": 14.008
+    },
+    "declaration + definition (5000 methods/owner)": {
+      "median_ns": 1497.6400136947632,
+      "min_ns": 1484.8800003528595,
+      "max_ns": 1725.1599952578545,
+      "spread": 0.16043908596713474,
+      "median_objects": 14.0016
+    },
+    "redefinition of annotated methods, unannotated": {
+      "median_ns": 269.5499686524272,
+      "min_ns": 266.1499660462141,
+      "max_ns": 275.50000231713057,
+      "spread": 0.03468758062803903,
+      "median_objects": 2.0
+    },
+    "reflection: own_annotations_for": {
+      "median_ns": 134.37499990686774,
+      "min_ns": 133.670000359416,
+      "max_ns": 136.8550001643598,
+      "spread": 0.023702324146241866,
+      "median_objects": 0.0
+    },
+    "reflection: annotations_for (defined once)": {
+      "median_ns": 202.71999761462212,
+      "min_ns": 200.6200049072504,
+      "max_ns": 227.8199978172779,
+      "spread": 0.13417518365275266,
+      "median_objects": 1.0
+    },
+    "reflection: annotations_for (unannotated override)": {
+      "median_ns": 179.39999233931303,
+      "min_ns": 175.7000107318163,
+      "max_ns": 188.8499828055501,
+      "spread": 0.07329973598249799,
+      "median_objects": 1.0
+    },
+    "reflection: annotation(name, type)": {
+      "median_ns": 262.040002271533,
+      "min_ns": 255.4399985820055,
+      "max_ns": 292.2199945896864,
+      "spread": 0.14036023389119215,
+      "median_objects": 1.0
+    },
+    "reflection: annotated_with (100 methods)": {
+      "median_ns": 27459.999546408653,
+      "min_ns": 27054.999954998493,
+      "max_ns": 27970.001101493835,
+      "spread": 0.03332123676655378,
+      "median_objects": 106.0
+    },
+    "call: plain method": {
+      "median_ns": 14.661499997600913,
+      "min_ns": 14.549499843269587,
+      "max_ns": 15.462499810382724,
+      "spread": 0.06227193447208901,
+      "median_objects": 0.0
+    },
+    "call: annotated method": {
+      "median_ns": 14.780999859794974,
+      "min_ns": 14.506999868899584,
+      "max_ns": 15.565000008791685,
+      "spread": 0.07157838779025445,
+      "median_objects": 0.0
+    }
+  },
+  "raw": [
+    {
+      "require": {
+        "ns": 1774999.7787177563,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 16643.250011838973,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 9765.502763912082,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 186.0500080510974,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 265.7500095665455,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 268.0499805137515,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 545.0999829918146,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1392.3499966040254,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1484.8800003528595,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 266.1499660462141,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 133.670000359416,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 201.1399995535612,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 175.79998821020126,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 255.94000704586506,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27459.999546408653,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 14.549499843269587,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 14.750499976798892,
+        "objects": 0.0
+      }
+    },
+    {
+      "require": {
+        "ns": 1783000.3052949905,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 17920.499993488193,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 25055.998004972935,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 247.44998663663864,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 279.2999381199479,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 318.3000022545457,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 599.4499661028385,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1623.6499650403857,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1725.1599952578545,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 275.50000231713057,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 136.8550001643598,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 227.8199978172779,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 188.8499828055501,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 292.2199945896864,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27970.001101493835,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 15.462499810382724,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 15.565000008791685,
+        "objects": 0.0
+      }
+    },
+    {
+      "require": {
+        "ns": 1896000.001579523,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 16903.700004331768,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 10159.49691645801,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 187.74992786347866,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 271.50006499141455,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 274.05000291764736,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 549.3999226018786,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1438.1000073626637,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1543.6000004410744,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 273.3500674366951,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 134.57999797537923,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 202.71999761462212,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 187.89998721331358,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 267.74000376462936,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27644.99979093671,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 14.735499862581491,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 14.780999859794974,
+        "objects": 0.0
+      }
+    },
+    {
+      "require": {
+        "ns": 1684000.2499520779,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 16703.599994070828,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 9781.000204384327,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 189.65001218020916,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 272.89995923638344,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 339.1000209376216,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 687.3000646010041,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1412.5999994575977,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1493.7200024724007,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 269.5499686524272,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 133.97000031545758,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 200.85999742150307,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 178.05001698434353,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 256.5000019967556,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27110.001537948847,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 15.002000145614147,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 14.506999868899584,
+        "objects": 0.0
+      }
+    },
+    {
+      "require": {
+        "ns": 2173000.0153183937,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 16793.649992905557,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 10044.995695352554,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 191.69989973306656,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 275.65001510083675,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 304.2999189347029,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 679.1500141844153,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1403.4999534487724,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1497.6400136947632,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 269.20000091195107,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 134.34499967843294,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 203.660000115633,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 185.69999374449253,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 262.040002271533,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27640.00091701746,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 14.616499887779355,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 14.59499984048307,
+        "objects": 0.0
+      }
+    },
+    {
+      "require": {
+        "ns": 1728999.8941123486,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 16660.949983634055,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 9820.997947826982,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 185.79994793981314,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 268.89999862760305,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 266.80000592023134,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 547.399977222085,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1405.9000182896852,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1493.6399832367897,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 267.2500442713499,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 134.37499990686774,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 200.6200049072504,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 179.39999233931303,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 255.4399985820055,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27274.999301880598,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 14.63400013744831,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 15.005500055849552,
+        "objects": 0.0
+      }
+    },
+    {
+      "require": {
+        "ns": 1755999.866873026,
+        "objects": 1796.0
+      },
+      "reflection: Adornment.annotated_with (global, 3 owners)": {
+        "ns": 17180.150002241135,
+        "objects": 107.00015
+      },
+      "activation (class + include Adornment[...])": {
+        "ns": 9769.995464012027,
+        "objects": 80.0005
+      },
+      "definition: plain class (baseline)": {
+        "ns": 185.64995843917131,
+        "objects": 2.003
+      },
+      "definition: activated, unannotated": {
+        "ns": 272.64999225735664,
+        "objects": 2.005
+      },
+      "definition: activated subclass, unannotated": {
+        "ns": 269.94997169822454,
+        "objects": 2.006
+      },
+      "declaration (repeatable, queued)": {
+        "ns": 549.9001126736403,
+        "objects": 9.004
+      },
+      "declaration + definition (1000 methods/owner)": {
+        "ns": 1425.6000285968184,
+        "objects": 14.008
+      },
+      "declaration + definition (5000 methods/owner)": {
+        "ns": 1527.280006557703,
+        "objects": 14.0016
+      },
+      "redefinition of annotated methods, unannotated": {
+        "ns": 270.05006559193134,
+        "objects": 2.0
+      },
+      "reflection: own_annotations_for": {
+        "ns": 136.11000031232834,
+        "objects": 0.0
+      },
+      "reflection: annotations_for (defined once)": {
+        "ns": 209.2800009995699,
+        "objects": 1.0
+      },
+      "reflection: annotations_for (unannotated override)": {
+        "ns": 175.7000107318163,
+        "objects": 1.0
+      },
+      "reflection: annotation(name, type)": {
+        "ns": 266.1400008946657,
+        "objects": 1.0
+      },
+      "reflection: annotated_with (100 methods)": {
+        "ns": 27054.999954998493,
+        "objects": 106.0
+      },
+      "call: plain method": {
+        "ns": 14.661499997600913,
+        "objects": 0.0
+      },
+      "call: annotated method": {
+        "ns": 14.800000004470348,
+        "objects": 0.0
+      }
+    }
+  ]
+}

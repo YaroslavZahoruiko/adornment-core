@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  specs:
+    name: Ruby ${{ matrix.ruby }}${{ matrix.yjit && ' / YJIT' || '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
+        yjit: [false]
+        include:
+          - { ruby: "3.4", yjit: true }
+          - { ruby: "4.0", yjit: true }
+    env:
+      RUBYOPT: ${{ matrix.yjit && '--yjit' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Specs
+        run: bundle exec rspec
+
+  lint:
+    name: RuboCop
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUNDLE_WITH: tooling
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+      - run: bundle exec rubocop
+
+  installed-gem:
+    name: Installed gem
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "4.0"
+      # Builds and installs the gem, then uses it with no Bundler, -I or RUBYLIB: only the
+      # packaged files can load (a file missing from spec.files fails here).
+      - run: |
+          gem build adornment-core.gemspec --strict --output "$RUNNER_TEMP/adornment-core.gem"
+          gem install --local --no-document --install-dir "$RUNNER_TEMP/gems" "$RUNNER_TEMP/adornment-core.gem"
+          cd "$RUNNER_TEMP"
+          env -u BUNDLE_GEMFILE -u RUBYOPT -u RUBYLIB GEM_HOME="$RUNNER_TEMP/gems" GEM_PATH="$RUNNER_TEMP/gems" ruby -e '
+            require "adornment/core"
+            home = File.realpath(ENV.fetch("GEM_HOME"))
+            files = $LOADED_FEATURES.grep(%r{adornment/core})
+            abort "loaded from outside the installed gem: #{files}" unless files.all? { |f| File.realpath(f).start_with?(home) }
+            class Traced
+              include Adornment::Annotation[]
+              attr_reader :span
+              def initialize(span: nil) = (@span = span)
+            end
+            class Orders
+              include Adornment[Traced]
+              Traced(span: "orders.fetch")
+              def fetch = 1
+            end
+            abort "reflection failed" unless Orders.annotation(:fetch, Traced).span == "orders.fetch"
+            Adornment.verify_all!(lint: :error)
+            puts "adornment-core #{Adornment::Core::VERSION}: #{files.size} files, all from the installed gem"
+          '
