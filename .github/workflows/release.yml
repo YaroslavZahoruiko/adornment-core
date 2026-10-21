@@ -51,7 +51,7 @@ jobs:
           version=$(ruby -r ./lib/adornment/core/version -e 'print Adornment::Core::VERSION')
           test "$GITHUB_REF_NAME" = "v$version" || { echo "tag $GITHUB_REF_NAME != v$version"; exit 1; }
           grep -q "^## $version " CHANGELOG.md || { echo "CHANGELOG.md has no $version entry"; exit 1; }
-      - uses: rubygems/configure-rubygems-credentials@v1
+      - uses: rubygems/configure-rubygems-credentials@v2.1.0
       - name: Build and push
         run: |
           gem build adornment-core.gemspec --strict --output adornment-core.gem
